@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign Up</title>
+  <link rel="stylesheet" href="stylesSignUp.css" />
+</head>
+<body>
+  <main class="container">
+    <section class="content">
+      <h1>Sign up</h1>
+      <p class="subtitle">Now fill out the form:</p>
+
+      <form id="userSignupForm">
+        <input type="text" name="firstName" placeholder="First Name" required />
+        <input type="text" name="lastName" placeholder="Last Name" required />
+        <input type="email" name="email" placeholder="Email" required />
+        <input type="password" name="password" placeholder="Password" required />
+
+        <section class="password-rules">
+          Password has to include at least:
+          <ul>
+            <li>1 big letter</li>
+            <li>1 number</li>
+            <li>8 symbols</li>
+          </ul>
+        </section>
+
+        <input type="password" name="verifyPassword" placeholder="Verify Password" required />
+
+        <section class="buttons">
+          <button type="button" id="backBtn">Back</button>
+          <button type="submit" id="finishBtn">Finish</button>
+        </section>
+
+        <section id="error" style="color: red; margin-top: 6px;"></section>
+      </form>
+
+      <footer class="icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none">
+            <path d="M27.7406 3.9375C27.4594 3.9375 27.1781 3.97031 26.9156 4.03594L19.6688 5.84883C12.9094 7.53867 8.25 12.9445 8.25 19.0969V23.625H9C10.6594 23.625 12 24.798 12 26.25V39.375C12 40.827 10.6594 42 9 42H3C1.34062 42 0 40.827 0 39.375V26.25C0 24.798 1.34062 23.625 3 23.625H3.75V19.0969C3.75 11.1891 9.74062 4.23281 18.4406 2.05898L25.6687 0.254297C26.3437 0.0820312 27.0375 0 27.7406 0C31.8844 0 35.25 2.94492 35.25 6.5707V11.1562C35.25 12.2473 34.2469 13.125 33 13.125C31.7531 13.125 30.75 12.2473 30.75 11.1562V6.5707C30.75 5.11875 29.4 3.9375 27.7406 3.9375ZM24 28.2188C24 22.3453 29.2125 17.7352 32.3438 16.0699C32.7469 15.8566 33.2438 15.8566 33.6562 16.0699C36.7969 17.7352 42 22.3535 42 28.2188C42 30.8438 40.5 34.7812 36 37.4062L38.5594 39.6457C38.8406 39.8918 39 40.2281 39 40.5727V40.6875C39 41.4094 38.325 42 37.5 42H28.5C27.675 42 27 41.4094 27 40.6875V40.5727C27 40.2281 27.1594 39.8918 27.4406 39.6457L30 37.4062C25.5 34.7812 24 30.8438 24 28.2188ZM36 25.5938C36 24.5064 34.9926 23.625 33.75 23.625C32.5074 23.625 31.5 24.5064 31.5 25.5938C31.5 26.6811 32.5074 27.5625 33.75 27.5625C34.9926 27.5625 36 26.6811 36 25.5938Z" fill="black"/>
+        </svg>
+      </footer>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
