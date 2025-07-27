@@ -64,3 +64,58 @@ if (signupForm) {
     alert("Your registration request has been sent to the admin for approval.");
   });
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  const hamburgerBtn = document.getElementById('hamburgerBtn');
+  const iconGroup = document.getElementById('sideIcons');
+
+  if (hamburgerBtn && iconGroup) {
+    hamburgerBtn.addEventListener('click', () => {
+      iconGroup.classList.toggle('active');
+    });
+  }
+});
+
+// === Обработка логина на экране входа (index.html) ===
+const loginForm = document.getElementById('loginForm');
+if (loginForm) {
+  const usernameInput = document.getElementById('username');
+  const passwordInput = document.getElementById('password');
+  const errorDiv = document.getElementById('loginError'); // <div id="loginError"></div> должен быть в HTML
+
+  // Убираем ошибку при любом вводе
+  [usernameInput, passwordInput].forEach(input => {
+    input.addEventListener('input', () => {
+      if (errorDiv) errorDiv.textContent = '';
+    });
+  });
+
+  loginForm.addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const username = usernameInput.value.trim();
+    const password = passwordInput.value.trim();
+
+    try {
+      const response = await fetch('user.json');
+      const user = await response.json();
+
+      if (username === user.username && password === user.password) {
+        window.location.href = 'FirstUserScrean.html';
+      } else {
+        if (errorDiv) {
+          errorDiv.textContent = 'Incorrect username or password.';
+        } else {
+          alert('Incorrect username or password.');
+        }
+      }
+    } catch (err) {
+      console.error('Login error:', err);
+      if (errorDiv) {
+        errorDiv.textContent = 'Incorrect username or password.';
+      } else {
+        alert('Incorrect username or password.');
+      }
+    }
+  });
+}
