@@ -22,6 +22,12 @@ body {
     flex-direction: column;
 }
 
+header .top-bar img {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+}
+
 h1 {
     color: #000;
     text-align: center;
