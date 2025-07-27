@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FishinMap</title>
+    <link rel="stylesheet" href="includes/Dashboard.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <header>
+        <div class="top-bar">
+            <a href="mainMenu.html">
+                <img src="images/backPage.png" alt="Back" width="24" height="24">
+            </a>
+            <a href="adminProfile.html">
+                <img src="images/profUser.png" alt="Back" width="24" height="24">
+            </a>
+        </div>
+    </header>
+    <h1>Dashboard</h1>
+    <main>
+        <div class="dashboard-card">
+            <div class="card-header">
+                <h2>How many users</h2>
+                <img src="images/3dots.png" alt="more options" class="more-icon">
+            </div>
+
+            <canvas id="userTypeChart" width="200" height="200"></canvas>
+
+            <div class="center-label">
+                <p class="chart-label">Users</p>
+                <p class="chart-number" id="user-count">0</p>
+            </div>
+
+            <div class="legend">
+                <p><span class="dot red"></span> Fisherman</p>
+                <p><span class="dot orange"></span> Experts</p>
+            </div>
+
+            <img src="images/diagram.png" class="chart-icon" alt="icon">
+        </div>
+
+        <div class="dashboard-card">
+            <div class="card-header">
+                <h2>Available right now</h2>
+                <img src="images/3dots.png" alt="more options" class="more-icon">
+            </div>
+
+            <canvas id="onlineStatusChart" width="200" height="200"></canvas>
+
+            <div class="center-label">
+                <p class="chart-label">Users</p>
+                <p class="chart-number" id="online-count">0</p>
+            </div>
+
+            <div class="legend">
+                <p><span class="dot red"></span> Not connected</p>
+                <p><span class="dot green"></span> Connected</p>
+            </div>
+
+            <img src="images/diagram.png" class="chart-icon" alt="icon">
+        </div>
+    </main>
+
+</body>
+
+</html>
