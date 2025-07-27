@@ -7,6 +7,11 @@
   padding: 0;
 }
 
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
 body {
   font-family: 'Comic Sans MS', sans-serif;
   background-color: #f6a960;
@@ -23,10 +28,13 @@ body {
 .content {
   width: 100%;
   max-width: 360px;
+  height: 100vh; /* фиксируем по высоте экрана */
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+  justify-content: space-between; /* распределим содержимое равномерно */
+  padding-bottom: 20px;
 }
 
 h1 {
@@ -99,7 +107,17 @@ button:hover {
 }
 
 footer.icon {
-  margin-top: 10px;
   font-size: 30px;
   text-align: center;
+  margin-top: auto; /* прижать вниз */
+}
+
+#error {
+  min-height: 24px;
+  color: red;
+  margin-top: 10px;
+  text-align: left;
+  width: 290px;
+  margin-left: auto;
+  margin-right: auto;
 }

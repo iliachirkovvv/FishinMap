@@ -13,9 +13,9 @@ body, html {
 main.container {
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Верх и низ */
-  height: 100%;
-  padding: 70px 20px;
+  justify-content: space-between; /* распределить контент и логотип */
+  min-height: 100vh;
+  padding: 0px 20px;
 }
 
 section.content {
@@ -23,6 +23,8 @@ section.content {
   flex-direction: column;
   align-items: center;
   flex-grow: 1;
+  justify-content: center;
+  text-align: center;
 }
 
 h1 {
@@ -98,7 +100,7 @@ nav.links a {
 }
 
 footer.icon {
-  margin-top: 10px;
   font-size: 30px;
   text-align: center;
+  margin-top: auto; /* прижать вниз */
 }
