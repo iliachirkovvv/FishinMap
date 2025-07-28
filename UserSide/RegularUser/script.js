@@ -119,3 +119,45 @@ if (loginForm) {
     }
   });
 }
+
+// === Переход на экран выбора локации по нажатию на рыбку ===
+const fishBtnMain = document.getElementById('fishBtn');
+if (fishBtnMain) {
+  fishBtnMain.addEventListener('click', () => {
+    window.location.href = 'selectLocation.html';
+  });
+}
+
+// === Логика на selectLocation.html ===
+document.addEventListener('DOMContentLoaded', () => {
+  // Подсветить рыбку
+  const fishBtn = document.getElementById('fishBtn');
+  if (fishBtn) {
+    fishBtn.classList.add('active');
+  }
+
+  // Кнопка Назад (крестик)
+  const backMapBtn = document.getElementById('backMapBtn');
+  if (backMapBtn) {
+    backMapBtn.addEventListener('click', () => {
+      window.history.back();
+    });
+  }
+
+  // Кнопка Вперёд (стрелка)
+  const nextMapBtn = document.getElementById('nextMapBtn');
+  if (nextMapBtn) {
+    nextMapBtn.addEventListener('click', () => {
+      window.location.href = 'nextActionScreen.html';
+    });
+  }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const fishBtn = document.getElementById('fishBtn');
+  if (fishBtn) {
+    // при переходе на новый экран — ставим активный стиль
+    fishBtn.classList.add('active');
+  }
+});
+
