@@ -14,7 +14,3 @@ mongoose.connect(process.env.MONGO_URI)
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`🚀 Server is running on port ${PORT}`));
-
-const userRoutes = require('../FishinMap/AdminSide/server/routers/userrouter');
-app.use('/api', userRoutes);
-
