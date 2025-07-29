@@ -140,7 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const backMapBtn = document.getElementById('backMapBtn');
   if (backMapBtn) {
     backMapBtn.addEventListener('click', () => {
-      window.history.back();
+      window.location.href = 'FirstUserScrean.html';
     });
   }
 
@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const nextMapBtn = document.getElementById('nextMapBtn');
   if (nextMapBtn) {
     nextMapBtn.addEventListener('click', () => {
-      window.location.href = 'nextActionScreen.html';
+      window.location.href = 'describeFish.html';
     });
   }
 });
@@ -161,3 +161,53 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+  const page = window.location.pathname.split('/').pop();
+
+  // === Экран добавления информации о рыбке (describeFish.html) ===
+  if (page === 'describeFish.html') {
+    // 1) Подсветить рыбку чёрным, но отключить у неё навигацию
+    const fishBtn = document.getElementById('fishBtn');
+    if (fishBtn) {
+      fishBtn.classList.add('active');
+      fishBtn.addEventListener('click', e => {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+      }, true);
+    }
+
+    // 2) Стрелка влево возвращает на экран выбора локации
+    const backBtnFish = document.getElementById('backBtnFish');
+    if (backBtnFish) {
+      backBtnFish.addEventListener('click', () => {
+        window.location.href = 'selectLocation.html';
+      });
+    }
+
+    // 3) Стрелка вправо в будущем поведёт на следующий экран
+    const nextBtnFish = document.getElementById('nextBtnFish');
+    if (nextBtnFish) {
+      nextBtnFish.addEventListener('click', () => {
+        // TODO: заменить 'nextScreen.html' на реальный путь следующего экрана
+        window.location.href = 'nextScreen.html';
+      });
+    }
+  }
+});
+
+document.getElementById('selectImage').addEventListener('click', () => {
+  document.getElementById('fishPhoto').click();
+});
+
+// показываем превью
+document.getElementById('fishPhoto').addEventListener('change', e => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    const img = document.getElementById('photoPreview');
+    img.src = ev.target.result;
+    img.style.display = 'block';
+  };
+  reader.readAsDataURL(file);
+});

@@ -1,0 +1,146 @@
+/* базовый сброс уже подключён в общем CSS */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Comic Sans MS', sans-serif;
+  overflow: hidden;
+  background-color: #f8af5f;
+  position: relative;
+}
+/* Шапка */
+header.top-bar {
+  height: 110px;
+  background: #e69138;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+header .step {
+  font-size: 30px;
+  font-weight: bold;
+}
+header .title {
+  font-size: 20px;
+  margin-top: 4px;
+}
+
+/* Форма */
+.form-section {
+  position: absolute;
+  top: 110px;
+  bottom: 90px;
+  left: 0;
+  right: 0;
+  padding: 10px 20px;
+  overflow-y: auto;
+}
+.form-section label {
+  display: block;
+  margin-bottom: 3px;
+  font-size: 14px;
+}
+.form-section input {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 16px;
+  border: 2px solid black;
+  border-radius: 4px;
+  margin-top: 4px;
+  box-sizing: border-box;
+}
+.form-section .search,
+.form-section .date-input {
+  position: relative;
+}
+.form-section .search input,
+.form-section .date-input input {
+  padding-right: 36px;
+}
+.form-section .search button,
+.form-section .date-input button {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+}
+.form-section .file-btn {
+  width: 100%;          /* растянуть на всю ширину, как поля ввода */
+  height: 42px;         /* подогнано под высоту инпутов */
+  margin-bottom: 3px;   /* уменьшенный отступ между полями */
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  font-size: 16px;
+  border: 2px solid black;
+  border-radius: 4px;
+  background: white;
+  cursor: pointer;
+}
+
+
+/* Навигационные стрелки */
+.arrow {
+  position: absolute;
+  bottom: 5px;
+  width: 48px;
+  height: 48px;
+  background: #e69138;
+  border: none;
+  border-radius: 50%;
+  font-size: 24px;
+  line-height: 48px;
+  text-align: center;
+  cursor: pointer;
+}
+.arrow.back { left: 20px; }
+.arrow.next { right: 20px; }
+
+/* Нижняя навигация */
+.bottom-nav {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 90px;
+  background: #e69138;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 10;
+}
+.bottom-nav .nav-icon {
+  width: 50px;
+  height: 50px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.bottom-nav .nav-icon svg {
+  width: 50px;
+  height: 50px;
+  fill: gray;
+}
+.bottom-nav .nav-icon#fishBtn.active svg,
+.bottom-nav .nav-icon#fishBtn.active svg * {
+  fill: black !important;
+  stroke: none !important;
+}
+
+#photoPreview {
+  display: block;            /* чтобы margin работал корректно */
+  max-height: 50px;          /* ограничиваем высоту */
+  width: auto;               /* сохраняем пропорции */
+  margin: 6px auto;          /* небольшой отступ сверху/снизу и центрирование */
+  object-fit: contain;       /* картинка не будет растягиваться */
+}
