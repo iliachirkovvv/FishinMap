@@ -1,0 +1,191 @@
+/* Reset & base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Comic Sans MS', sans-serif;
+  overflow: hidden;
+  background-color: #f8af5f;
+  position: relative;
+}
+
+/* 1. Верхняя панель */
+header.top-bar {
+  height: 110px;
+  width: 100%;
+  background-color: #f8af5f;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+header.top-bar .step {
+  font-size: 30px;
+  font-weight: bold;
+}
+header.top-bar .title {
+  font-size: 18px;
+}
+header.top-bar .search {
+  margin-top: 2px;
+  position: relative;
+  width: 250px;
+}
+header.top-bar .search input {
+  width: 100%;
+  padding: 8px 44px 8px 12px;
+  border: 2px solid black;
+  border-radius: 4px;
+  font-size: 16px;
+}
+header.top-bar .search button {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  z-index: 2;
+}
+
+header.top-bar .search button svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* 2. Карта */
+.map-container {
+  position: absolute;
+  top: 110px;
+  bottom: 90px;
+  left: 0;
+  right: 0;
+  z-index: 0;
+}
+.map-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.map-container .map-btn {
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  background-color: #f8af5f;
+  border: none;
+  border-radius: 50%;
+  font-size: 24px;
+  line-height: 48px;
+  text-align: center;
+  cursor: pointer;
+  z-index: 2;
+}
+.map-container .map-btn.back {
+  left: 16px;
+  bottom: 16px;
+}
+.map-container .map-btn.next {
+  right: 16px;
+  bottom: 16px;
+}
+
+/* 3. Нижняя навигация */
+.bottom-nav {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 90px;
+  background-color: #e69138;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 10;
+}
+.bottom-nav button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.bottom-nav .nav-icon svg {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  display: block;
+  fill: gray;
+}
+
+.nav-icon#fishBtn.active svg,
+.nav-icon#fishBtn.active svg *,
+.nav-icon#fishBtn.active svg path {
+  fill: black !important;
+  stroke: black !important;
+}
+
+
+/* 4. Гамбургер и боковое меню */
+.side-menu {
+  position: absolute;
+  right: 10px;
+  bottom: calc(110px + 25px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  z-index: 11;
+}
+.hamburger {
+  background-color: #e69138;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+}
+.icon-group {
+  background-color: #f6b26b;
+  border-radius: 25px;
+  padding: 10px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: center;
+  transition: all 0.3s ease;
+  opacity: 0;
+  transform: translateY(100%);
+  pointer-events: none;
+}
+.icon-group.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.menu-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.menu-icon svg {
+  width: 36px;
+  height: 36px;
+}
