@@ -86,6 +86,49 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/users/rank4",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/users/rank4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"rank4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/users/upgrade/688a7a617a8051572e68fd7f",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/users/upgrade/688a7a617a8051572e68fd7f",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"upgrade",
+						"688a7a617a8051572e68fd7f"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
