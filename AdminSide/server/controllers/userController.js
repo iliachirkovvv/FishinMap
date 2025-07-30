@@ -19,7 +19,7 @@ const loginUser = async (req, res) => {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
 
-        if (user.role !== 'Admin') {
+        if (user.role !== 'admin') {
             return res.status(403).json({ message: 'Access denied: Not an admin' });
         }
 
