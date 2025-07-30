@@ -273,7 +273,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (confirmBtn) {
       confirmBtn.addEventListener('click', () => {
         console.log('Post sent to admin:', data, savedLoc);
-        alert('Ваш пост отправлен на проверку администратору.');
+        alert('Your post has been sent to the admin for review.');
         window.location.href = 'FirstUserScrean.html';
       });
     }
