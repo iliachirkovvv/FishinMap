@@ -1,14 +1,16 @@
 require('dotenv').config();
 const express = require('express');
-const app = express();
 const mongoose = require('mongoose');
 const cors = require('cors');
+const path = require('path');
 
-
+const app = express();
 app.use(cors());
 app.use(express.json());
 
-const userRoutes = require('./AdminSide/server/routers/userrouter.js');
+app.use(express.static(path.join(__dirname, 'AdminSide/client')));
+
+const userRoutes = require('./server/routers/userrouter');
 app.use('/api/users', userRoutes);
 
 mongoose.connect(process.env.MONGO_URI)

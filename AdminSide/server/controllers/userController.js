@@ -1,4 +1,5 @@
 const User = require('../models/user');
+
 const getAllUsers = async (req, res) => {
     try {
         const users = await User.find();
@@ -18,7 +19,7 @@ const loginUser = async (req, res) => {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
 
-        if (user.role !== 'admin') {
+        if (user.role !== 'Admin') {
             return res.status(403).json({ message: 'Access denied: Not an admin' });
         }
 
@@ -26,10 +27,10 @@ const loginUser = async (req, res) => {
             message: 'Login successful',
             user: {
                 id: user._id,
-                name: user.name,
+                name: `${user.firstName} ${user.lastName}`,
                 email: user.email,
                 role: user.role,
-                status: user.status
+                rank: user.rank
             }
         });
     } catch (error) {
