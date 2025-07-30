@@ -8,7 +8,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const userRoutes = require('../FishinMap/AdminSide/server/routers/userrouter.js');
+const userRoutes = require('./routers/userrouter.js');
 app.use('/api/users', userRoutes);
 
 mongoose.connect(process.env.MONGO_URI)

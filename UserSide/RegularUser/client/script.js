@@ -180,6 +180,31 @@ document.addEventListener('DOMContentLoaded', () => {
       }, true);
     }
 
+        // === Превью фото на describeFish.html ===
+    const selectImageBtn = document.getElementById('selectImage');
+    const fishPhotoInput = document.getElementById('fishPhoto');
+    const photoPreview   = document.getElementById('photoPreview');
+
+    if (selectImageBtn && fishPhotoInput && photoPreview) {
+      // Открываем диалог выбора файла
+      selectImageBtn.addEventListener('click', () => {
+        fishPhotoInput.click();
+      });
+
+      // Когда файл выбран — читаем и показываем
+      fishPhotoInput.addEventListener('change', e => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = ev => {
+          photoPreview.src           = ev.target.result;
+          photoPreview.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+
     // 2) Стрелка влево возвращает на экран выбора локации
     const backBtnFish = document.getElementById('backBtnFish');
     if (backBtnFish) {
@@ -203,7 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Сохраняем всё в sessionStorage
         const postData = { fishType, fishWeight, fishLength, catchDate, photoSrc };
-        sessionStorage.setItem('fishData', JSON.stringify(postData));
+        sessionStorage.setItem('fishData', JSON.stringify({fishType,fishWeight,fishLength,catchDate,photoSrc}));
 
         // Переходим на экран проверки
         window.location.href = 'reviewPost.html';
@@ -212,58 +237,45 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-document.getElementById('selectImage').addEventListener('click', () => {
-  document.getElementById('fishPhoto').click();
-});
-
-// показываем превью
-document.getElementById('fishPhoto').addEventListener('change', e => {
-  const file = e.target.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = ev => {
-    const img = document.getElementById('photoPreview');
-    img.src = ev.target.result;
-    img.style.display = 'block';
-  };
-  reader.readAsDataURL(file);
-});
-
 
 document.addEventListener('DOMContentLoaded', () => {
   const page = window.location.pathname.split('/').pop();
-
   if (page === 'reviewPost.html') {
-    // 1) Чтение данных из sessionStorage
-    const data     = JSON.parse(sessionStorage.getItem('fishData') || '{}');
-    const savedLoc = sessionStorage.getItem('selectedLocation') || '';
+    // 1) Читаем данные
+    const data     = JSON.parse(sessionStorage.getItem('fishData')       || '{}');
+    const savedLoc = sessionStorage.getItem('selectedLocation')         || '';
 
-    // 2) Заполнение полей
-    document.getElementById('displayFishType').innerText   = data.fishType   || '';
-    document.getElementById('displayFishWeight').innerText = data.fishWeight || '';
-    document.getElementById('displayFishLength').innerText = data.fishLength || '';
-    document.getElementById('displayCatchDate').innerText  = data.catchDate  || '';
-    document.getElementById('displayLocation').innerText   = savedLoc;
+    // 2) Заполняем поля
+    const el = id => document.getElementById(id);
+    if (el('displayFishType'))   el('displayFishType').innerText   = data.fishType   || '';
+    if (el('displayFishWeight')) el('displayFishWeight').innerText = data.fishWeight || '';
+    if (el('displayFishLength')) el('displayFishLength').innerText = data.fishLength || '';
+    if (el('displayCatchDate'))  el('displayCatchDate').innerText  = data.catchDate  || '';
+    if (el('displayLocation'))   el('displayLocation').innerText   = savedLoc;
 
-    // 3) Показ превью
-    const img = document.getElementById('displayPhoto');
-    if (data.photoSrc) {
+    // 3) Показываем фото‑превью
+    const img = el('displayPhoto');
+    if (img && data.photoSrc) {
       img.src           = data.photoSrc;
       img.style.display = 'block';
     }
 
-    // 4) Навигация стрелок
-    document.getElementById('backBtnReview')
-      .addEventListener('click', () => {
+    // 4) ← Назад на describeFish.html
+    const backBtn = el('backBtnReview');
+    if (backBtn) {
+      backBtn.addEventListener('click', () => {
         window.location.href = 'describeFish.html';
       });
+    }
 
-    document.getElementById('confirmBtn')
-      .addEventListener('click', () => {
-        // отправляем админу
+    // 5) ✔ Отправляем админу, alert и возвращаем на главный экран
+    const confirmBtn = el('confirmBtn');
+    if (confirmBtn) {
+      confirmBtn.addEventListener('click', () => {
         console.log('Post sent to admin:', data, savedLoc);
-        // возвращаем на главный экран
+        alert('Ваш пост отправлен на проверку администратору.');
         window.location.href = 'FirstUserScrean.html';
       });
+    }
   }
 });
