@@ -13,6 +13,9 @@ app.use(express.static(path.join(__dirname, 'AdminSide/client')));
 const userRoutes = require('./server/routers/userrouter');
 app.use('/api/users', userRoutes);
 
+const postRoutes = require('./server/routers/postrouter');
+app.use('/api/posts', postRoutes);
+
 mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log("✅ Connected to MongoDB"))
     .catch(err => console.error("❌ MongoDB error:", err));
