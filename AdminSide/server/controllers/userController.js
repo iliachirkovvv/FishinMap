@@ -38,7 +38,18 @@ const loginUser = async (req, res) => {
     }
 };
 
+const getUsersWithRank4 = async (req, res) => {
+    try {
+        const users = await User.find({ rank: 4 });
+        res.status(200).json(users);
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching users with rank 4', error });
+    }
+};
+
+
 module.exports = {
     getAllUsers,
-    loginUser
+    loginUser,
+    getUsersWithRank4
 };
