@@ -91,11 +91,11 @@ header.top-bar .search button svg {
 }
 .map-container .map-btn.back {
   left: 16px;
-  bottom: 16px;
+  bottom: 5px;
 }
 .map-container .map-btn.next {
   right: 16px;
-  bottom: 16px;
+  bottom: 5px;
 }
 
 /* 3. Нижняя навигация */
