@@ -1,6 +1,6 @@
   var map = L.map('map', {
     center: [32.329, 34.858],
-    zoom: 9,
+    zoom: 8,
     maxZoom: 10,
     minZoom: 2
   });
@@ -10,7 +10,12 @@
   // Marine features overlay
   L.tileLayer('https://tiles.openseamap.org/seamark/{z}/{x}/{y}.png').addTo(map);
 
-  
+  const fishIcon = L.icon({
+    iconUrl: './images/fish.png', // Flaticon fish image
+    iconSize:     [40, 40], // width, height
+    iconAnchor:   [20, 40], // point of the icon which corresponds to marker location
+    popupAnchor:  [0, -40]  // where popup opens relative to iconAnchor
+  });
 
  function centerMapOnUser() {
   if ("geolocation" in navigator) {
@@ -44,7 +49,7 @@ fetch('/api/fish-locations') // or your actual endpoint, e.g. '/api/posts'
         if (!isNaN(lat) && !isNaN(lng)) {
           // Only show approved posts, or change logic as needed
           if (post.__v == 1) {
-            L.marker([lat, lng]).addTo(map)
+            L.marker([lat, lng], { icon: fishIcon }).addTo(map)
               .bindPopup(
                 `<b>${post.fishType || 'Unknown Fish'}</b><br>
                  ${post.catchDate ? new Date(post.catchDate).toLocaleDateString() : ''}
@@ -62,9 +67,3 @@ fetch('/api/fish-locations') // or your actual endpoint, e.g. '/api/posts'
     console.error('Failed to fetch locations:', err);
   });
 
-marker.on('mouseover', function (e) {
-  this.openPopup();
-});
-marker.on('mouseout', function (e) {
-  this.closePopup();
-});

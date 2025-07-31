@@ -15,14 +15,11 @@
   var coordInput = document.getElementById('locationInput');
 
   // Standard Leaflet marker icon, with explicit anchor for bottom center
-  var standardIcon = L.icon({
-    iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
-    iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
-    shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
-    iconSize: [25, 41],
-    iconAnchor: [12,41], // bottom center
-    popupAnchor: [1, -34],
-    shadowSize: [41, 41]
+  const fishIcon = L.icon({
+    iconUrl: './images/fish.png', // Flaticon fish image
+    iconSize:     [40, 40], // width, height
+    iconAnchor:   [20, 15], // point of the icon which corresponds to marker location
+    popupAnchor:  [0, -40]  // where popup opens relative to iconAnchor
   });
 
   // Handle map clicks
@@ -32,7 +29,7 @@
 
     // Place or move marker
     if (!marker) {
-      marker = L.marker(e.latlng, { icon: standardIcon, draggable: true }).addTo(map);
+      marker = L.marker(e.latlng, { icon: fishIcon, draggable: true }).addTo(map);
       marker.on('dragend', function(ev) {
         var pos = ev.target.getLatLng();
         coordInput.value = pos.lat.toFixed(6) + ', ' + pos.lng.toFixed(6);
