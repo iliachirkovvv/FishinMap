@@ -49,7 +49,7 @@ fetch('/api/fish-locations') // or your actual endpoint, e.g. '/api/posts'
         if (!isNaN(lat) && !isNaN(lng)) {
           // Only show approved posts, or change logic as needed
           if (post.__v == 1) {
-            L.marker([lat, lng], { icon: fishIcon }).addTo(map)
+            const marker = L.marker([lat, lng], { icon: fishIcon }).addTo(map)
               .bindPopup(
                 `<b>${post.fishType || 'Unknown Fish'}</b><br>
                  ${post.catchDate ? new Date(post.catchDate).toLocaleDateString() : ''}
@@ -58,6 +58,8 @@ fetch('/api/fish-locations') // or your actual endpoint, e.g. '/api/posts'
                  ${post.photoSrc ? '<br><img src="' + post.photoSrc + '" style="max-width:100px;max-height:80px;"/>' : ''}
                 `
               );
+              marker.on('mouseover', function(e) { this.openPopup(); });
+              marker.on('mouseout', function(e) { this.closePopup(); });
           }
         }
       }
