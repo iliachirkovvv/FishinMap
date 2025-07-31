@@ -34,8 +34,7 @@ router.post('/', async (req, res) => {
       catchDate,
       location,
       photoSrc,
-      __v
-      // status по умолчанию 'approved'
+      status: 1
     });
     await ep.save();
     res.status(201).json({ message: 'Expert post published', postId: ep._id });

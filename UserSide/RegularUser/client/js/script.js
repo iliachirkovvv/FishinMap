@@ -439,7 +439,7 @@ document.addEventListener('DOMContentLoaded', () => {
           catchDate:  expertData.catchDate,
           location,
           photoSrc:   expertData.photoSrc,
-          __v: 1
+          status: 1 // всегда 1 для эксперта
         };
         try {
           const resp = await fetch('/api/expert', {
