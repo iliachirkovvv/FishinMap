@@ -35,3 +35,15 @@ router.get('/', async (req, res) => {
 });
 
 module.exports = router;
+
+// GET all fish locations
+router.get('/api/fish-locations', async (req, res) => {
+  try {
+    const locations = await Post.find({});
+    res.json(locations);
+  } catch (err) {
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+module.exports = router;
