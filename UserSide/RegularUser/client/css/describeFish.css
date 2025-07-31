@@ -93,19 +93,25 @@ header .title {
 /* Навигационные стрелки */
 .arrow {
   position: absolute;
-  bottom: 5px;
+  bottom: 15px;
   width: 48px;
   height: 48px;
   background: #e69138;
   border: none;
   border-radius: 50%;
-  font-size: 24px;
+  font-family:Impact, 'Arial Narrow Bold', sans-serif;
+  font-size: 28px;
+  font-weight: bold;
   line-height: 48px;
   text-align: center;
   cursor: pointer;
 }
-.arrow.back { left: 20px; }
-.arrow.next { right: 20px; }
+.arrow.back { 
+  left: 16px;
+}
+.arrow.next { 
+  right: 16px;
+}
 
 /* Нижняя навигация */
 .bottom-nav {
