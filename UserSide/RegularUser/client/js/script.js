@@ -76,46 +76,54 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// === Обработка логина на экране входа (index.html) ===
+// login
 const loginForm = document.getElementById('loginForm');
 if (loginForm) {
-  const usernameInput = document.getElementById('username');
+  const emailInput    = document.getElementById('username');  // переименовал на email
   const passwordInput = document.getElementById('password');
-  const errorDiv = document.getElementById('loginError'); // <div id="loginError"></div> должен быть в HTML
+  const errorDiv      = document.getElementById('loginError');
 
-  // Убираем ошибку при любом вводе
-  [usernameInput, passwordInput].forEach(input => {
-    input.addEventListener('input', () => {
-      if (errorDiv) errorDiv.textContent = '';
-    });
-  });
+  // Сбросим ошибку при любом вводе
+  [emailInput, passwordInput].forEach(i =>
+    i.addEventListener('input', () => { if (errorDiv) errorDiv.textContent = ''; })
+  );
 
   loginForm.addEventListener('submit', async function (e) {
     e.preventDefault();
 
-    const username = usernameInput.value.trim();
+    const email    = emailInput.value.trim();
     const password = passwordInput.value.trim();
 
-    try {
-      const response = await fetch('user.json');
-      const user = await response.json();
+    if (!email || !password) {
+      if (errorDiv) errorDiv.textContent = 'Please enter email and password.';
+      return;
+    }
 
-      if (username === user.username && password === user.password) {
-        window.location.href = 'FirstUserScrean.html';
-      } else {
-        if (errorDiv) {
-          errorDiv.textContent = 'Incorrect username or password.';
-        } else {
-          alert('Incorrect username or password.');
-        }
+    try {
+      const resp = await fetch('/api/auth/login', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ email, password })
+      });
+
+      const result = await resp.json();
+
+      if (!resp.ok) {
+        // 400 / 401 / 500
+        if (errorDiv) errorDiv.textContent = result.error || 'Login failed';
+        return;
       }
+
+      // Успешный логин
+      // Сохраним данные пользователя, если нужно
+      sessionStorage.setItem('user', JSON.stringify(result.user));
+
+      // Перейдём на главный экран
+      window.location.href = 'FirstUserScrean.html';
+
     } catch (err) {
       console.error('Login error:', err);
-      if (errorDiv) {
-        errorDiv.textContent = 'Incorrect username or password.';
-      } else {
-        alert('Incorrect username or password.');
-      }
+      if (errorDiv) errorDiv.textContent = 'Network error, please try later.';
     }
   });
 }
@@ -268,14 +276,53 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // 5) ✔ Отправляем админу, alert и возвращаем на главный экран
-    const confirmBtn = el('confirmBtn');
-    if (confirmBtn) {
-      confirmBtn.addEventListener('click', () => {
-        console.log('Post sent to admin:', data, savedLoc);
-        alert('Your post has been sent to the admin for review.');
-        window.location.href = 'FirstUserScrean.html';
-      });
+    // 5) ✔ Отправляем на сервер, alert и возвращаем на главный экран
+const confirmBtn = el('confirmBtn');
+if (confirmBtn) {
+  confirmBtn.addEventListener('click', async () => {
+    // 1) Берём залогиненного пользователя из sessionStorage
+    const user = JSON.parse(sessionStorage.getItem('user') || '{}');
+    if (!user.id) {
+      alert('User not logged in');
+      return;
     }
+
+    // 2) Собираем тело запроса
+    const postBody = {
+      user:     user.id,        // поле user в БД
+      fishType:   data.fishType,
+      fishWeight: data.fishWeight,
+      fishLength: data.fishLength,
+      catchDate:  data.catchDate,
+      photoSrc:   data.photoSrc,
+      location:   savedLoc
+    };
+
+    try {
+      // 3) POST /api/posts
+      const resp = await fetch('/api/posts', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify(postBody)
+      });
+      const result = await resp.json();
+
+      // 4) Если сервер вернул ошибку
+      if (!resp.ok) {
+        alert(result.error || 'Failed to send post');
+        return;
+      }
+
+      // 5) Успех
+      alert('Your post has been sent to the admin for review.');
+      window.location.href = 'FirstUserScrean.html';
+
+    } catch (err) {
+      console.error('Error sending post:', err);
+      alert('Network error, please try later.');
+    }
+  });
+}
+
   }
 });

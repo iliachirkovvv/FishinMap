@@ -17,7 +17,7 @@ const UserSchema = new mongoose.Schema({
     enum: ['Regular', 'Expert', 'Admin'],
     default: 'Regular' // по умолчанию обычный пользователь
   }
-  // можно добавить ещё любые поля, например role, avatar и т.д.
+  
 }, {
   timestamps: true    // автоматически добавит createdAt / updatedAt
 });
