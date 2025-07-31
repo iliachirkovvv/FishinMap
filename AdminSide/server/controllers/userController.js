@@ -66,7 +66,7 @@ const keepAsFisherman = async (req, res) => {
     try {
         const user = await User.findByIdAndUpdate(
             req.params.id,
-            { role: 'fisherman' }, // תפקיד ברירת מחדל
+            { role: 'fisherman' },
             { new: true }
         );
         if (!user) return res.status(404).json({ message: 'User not found' });
@@ -77,10 +77,32 @@ const keepAsFisherman = async (req, res) => {
     }
 };
 
+const getUserById = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+        if (!user) return res.status(404).json({ message: 'User not found' });
+        res.status(200).json(user);
+    } catch (err) {
+        res.status(500).json({ message: 'Error fetching user', error: err });
+    }
+};
+
+const approveUser = async (req, res) => {
+    try {
+        const user = await User.findByIdAndUpdate(req.params.id, { role: "Expert" }, { new: true });
+        if (!user) return res.status(404).json({ message: "User not found" });
+        res.json({ message: "User approved", user });
+    } catch (err) {
+        res.status(500).json({ message: "Server error" });
+    }
+};
+
 module.exports = {
     getAllUsers,
     loginUser,
     getUsersWithRank4,
     upgradeToExpert,
-    keepAsFisherman
+    keepAsFisherman,
+    getUserById,
+    approveUser
 };
