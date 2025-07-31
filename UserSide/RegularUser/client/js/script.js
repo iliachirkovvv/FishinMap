@@ -58,10 +58,10 @@ if (signupForm) {
     // Всё в порядке — отправка данных
     const formData = new FormData(signupForm);
     const data = Object.fromEntries(formData);
-// отпарвка на сервер
 
     console.log("User registration request:", data);
     alert("Your registration request has been sent to the admin for approval.");
+    window.location.href = "mainUserScrean.html";
   });
 }
 
