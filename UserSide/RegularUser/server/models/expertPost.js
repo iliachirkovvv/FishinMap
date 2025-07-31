@@ -11,9 +11,9 @@ const ExpertPostSchema = new mongoose.Schema({
   catchDate:  { type: Date,   required: true },
   location:   { type: String, required: true },
   photoSrc:   { type: String },                      // base64 или URL
-  status:     {
-    type: String,
-    default: 'approved'                              // сразу одобрён
+  __v:     {
+    type: Number,
+    default: 1                             // сразу одобрён
   }
 }, {
   timestamps: true

@@ -7,6 +7,7 @@ const cors     = require('cors');
 
 const authRouter = require('./server/routes/auth');
 const postRouter = require('./server/routes/posts');
+const expertRouter = require('./server/routes/expert');
 // (если позже заведёте users.js или admin.js, подключайте тут)
 
 // 1) Подключаемся к MongoDB
@@ -27,6 +28,7 @@ app.use(express.urlencoded({ extended: true }));
 // 3) API-маршруты
 app.use('/api/auth', authRouter);
 app.use('/api/posts', postRouter);
+app.use('/api/expert', expertRouter);
 app.use('/api/fish-locations', postRouter); // для получения локаций рыбных мест
 
 // 4) Раздача фронтенда

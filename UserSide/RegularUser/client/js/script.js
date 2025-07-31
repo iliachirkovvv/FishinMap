@@ -240,7 +240,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const photoSrc     = photoPreview && photoPreview.src ? photoPreview.src : '';
 
         // Сохраняем всё в sessionStorage
-        const postData = { fishType, fishWeight, fishLength, catchDate, photoSrc };
         sessionStorage.setItem('fishData', JSON.stringify({fishType,fishWeight,fishLength,catchDate,photoSrc}));
 
         // Переходим на экран проверки
@@ -362,10 +361,10 @@ document.addEventListener('DOMContentLoaded', () => {
       nextExpert.addEventListener('click', () => {
         // читаем значения всех полей эксперта:
         const fishType   = document.querySelector('input[name="fishType"]').value;
-        const season     = document.querySelector('input[name="season"]').value;
+        const season     = document.querySelector('input[name="Season"]').value;
         const fishWeight = document.querySelector('input[name="fishWeight"]').value;
         const fishLength = document.querySelector('input[name="fishLength"]').value;
-        const amount     = document.querySelector('input[name="amount"]').value;
+        const amount     = document.querySelector('input[name="Amount"]').value;
         const catchDate  = document.querySelector('input[name="catchDate"]').value;
 
         // фото (если нужно, по аналогии с обычной страницей)
@@ -431,19 +430,19 @@ document.addEventListener('DOMContentLoaded', () => {
       .addEventListener('click', async () => {
         
         const postBody = {
-          author:     user.id,
+          user:     user.id,
           fishType:   expertData.fishType,
           season:     expertData.season,
           fishWeight: expertData.fishWeight,
           fishLength: expertData.fishLength,
           amount:     expertData.amount,
           catchDate:  expertData.catchDate,
-          photoSrc:   expertData.photoSrc,
           location,
-          status:     'approved'
+          photoSrc:   expertData.photoSrc,
+          __v: 1
         };
         try {
-          const resp = await fetch('/api/posts', {
+          const resp = await fetch('/api/expert', {
             method:  'POST',
             headers: { 'Content-Type': 'application/json' },
             body:    JSON.stringify(postBody)

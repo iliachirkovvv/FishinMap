@@ -13,7 +13,8 @@ router.post('/', async (req, res) => {
     amount,
     catchDate,
     location,
-    photoSrc
+    photoSrc,
+    __v
   } = req.body;
 
   // Проверяем обязательные поля
@@ -32,7 +33,8 @@ router.post('/', async (req, res) => {
       amount,
       catchDate,
       location,
-      photoSrc
+      photoSrc,
+      __v
       // status по умолчанию 'approved'
     });
     await ep.save();
