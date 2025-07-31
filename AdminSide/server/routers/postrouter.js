@@ -8,8 +8,5 @@ const {
 
 router.get('/', getAllPosts);
 
-router.put('/approve/:id', approvePost);
-
-router.delete('/:id', deletePost);
 
 module.exports = router;
