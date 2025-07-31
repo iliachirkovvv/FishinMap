@@ -27,6 +27,7 @@ app.use(express.urlencoded({ extended: true }));
 // 3) API-маршруты
 app.use('/api/auth', authRouter);
 app.use('/api/posts', postRouter);
+app.use('/api/fish-locations', postRouter); // для получения локаций рыбных мест
 
 // 4) Раздача фронтенда
 //    Предполагается, что рядом с server/ лежит папка client/

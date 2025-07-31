@@ -10,6 +10,8 @@
   // Marine features overlay
   L.tileLayer('https://tiles.openseamap.org/seamark/{z}/{x}/{y}.png').addTo(map);
 
+  
+
  function centerMapOnUser() {
   if ("geolocation" in navigator) {
     navigator.geolocation.getCurrentPosition(
@@ -29,3 +31,40 @@
 
 // Attach to your button
 document.getElementById('navBtn').addEventListener('click', centerMapOnUser);
+
+// Fetch posts and show as markers
+fetch('/api/fish-locations') // or your actual endpoint, e.g. '/api/posts'
+  .then(res => res.json())
+  .then(posts => {
+    posts.forEach(post => {
+      if (post.location) {
+        // Split "lat,lng" string
+        const [lat, lng] = post.location.split(',').map(Number);
+        // Validate numbers
+        if (!isNaN(lat) && !isNaN(lng)) {
+          // Only show approved posts, or change logic as needed
+          if (post.__v == 1) {
+            L.marker([lat, lng]).addTo(map)
+              .bindPopup(
+                `<b>${post.fishType || 'Unknown Fish'}</b><br>
+                 ${post.catchDate ? new Date(post.catchDate).toLocaleDateString() : ''}
+                 ${post.fishWeight ? '<br>Weight: ' + post.fishWeight : ''}
+                 ${post.fishLength ? '<br>Length: ' + post.fishLength : ''}
+                 ${post.photoSrc ? '<br><img src="' + post.photoSrc + '" style="max-width:100px;max-height:80px;"/>' : ''}
+                `
+              );
+          }
+        }
+      }
+    });
+  })
+  .catch(err => {
+    console.error('Failed to fetch locations:', err);
+  });
+
+marker.on('mouseover', function (e) {
+  this.openPopup();
+});
+marker.on('mouseout', function (e) {
+  this.closePopup();
+});
