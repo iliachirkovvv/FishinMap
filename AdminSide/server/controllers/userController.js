@@ -19,7 +19,7 @@ const loginUser = async (req, res) => {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
 
-        if (user.role !== 'Admin') {
+        if (user.role !== 'admin') {
             return res.status(403).json({ message: 'Access denied: Not an admin' });
         }
 
@@ -38,7 +38,49 @@ const loginUser = async (req, res) => {
     }
 };
 
+const getUsersWithRank4 = async (req, res) => {
+    try {
+        const users = await User.find({ rank: 4 });
+        res.status(200).json(users);
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching users with rank 4', error });
+    }
+};
+
+const upgradeToExpert = async (req, res) => {
+    try {
+        const user = await User.findByIdAndUpdate(
+            req.params.id,
+            { role: 'expert' },
+            { new: true }
+        );
+        if (!user) return res.status(404).json({ message: 'User not found' });
+
+        res.status(200).json({ message: 'User upgraded to expert', user });
+    } catch (error) {
+        res.status(500).json({ message: 'Error upgrading user', error });
+    }
+};
+
+const keepAsFisherman = async (req, res) => {
+    try {
+        const user = await User.findByIdAndUpdate(
+            req.params.id,
+            { role: 'fisherman' }, // תפקיד ברירת מחדל
+            { new: true }
+        );
+        if (!user) return res.status(404).json({ message: 'User not found' });
+
+        res.status(200).json({ message: 'User kept as fisherman', user });
+    } catch (error) {
+        res.status(500).json({ message: 'Error keeping user as fisherman', error });
+    }
+};
+
 module.exports = {
     getAllUsers,
-    loginUser
+    loginUser,
+    getUsersWithRank4,
+    upgradeToExpert,
+    keepAsFisherman
 };
