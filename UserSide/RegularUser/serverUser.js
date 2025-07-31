@@ -43,3 +43,6 @@ const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
+
+const expertPostRouter = require('./server/routes/expert');
+app.use('/api/posts/expert', expertPostRouter);

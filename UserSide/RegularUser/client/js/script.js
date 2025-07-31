@@ -159,8 +159,13 @@ document.addEventListener('DOMContentLoaded', () => {
       const locationValue = document.querySelector('input[name="location"]').value;
       // 2) Сохраняем в sessionStorage
       sessionStorage.setItem('selectedLocation', locationValue);
-      // 3) Переходим дальше
-      window.location.href = 'describeFish.html';
+      // 3) Решаем, куда идти дальше: обычный или эксперт-экран
+     const user = JSON.parse(sessionStorage.getItem('user') || '{}');
+     const nextScreen = (user.rank >= 4)
+      ? 'describeFishExpert.html'   // эксперт видит свой экран
+      : 'describeFish.html';        // обычный пользователь
+     window.location.href = nextScreen;
+      
     });
   }
 });
@@ -324,5 +329,136 @@ if (confirmBtn) {
   });
 }
 
+  }
+});
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const page = window.location.pathname.split('/').pop();
+
+  // === Экран описания рыбы экспертом (describeFishExpert.html) ===
+  if (page === 'describeFishExpert.html') {
+    // 1) Подсветить рыбку и отключить её навигацию
+    const fishBtn = document.getElementById('fishBtn');
+    if (fishBtn) {
+      fishBtn.classList.add('active');
+      fishBtn.addEventListener('click', e => {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+      }, true);
+    }
+
+    // 2) ← Назад на selectLocation.html
+    const backExpert = document.getElementById('backBtnExpert');
+    if (backExpert) {
+      backExpert.addEventListener('click', () => {
+        window.location.href = 'selectLocation.html';
+      });
+    }
+
+    // 3) → Сбор полей эксперта и переход на reviewPostExpert.html
+    const nextExpert = document.getElementById('nextBtnExpert');
+    if (nextExpert) {
+      nextExpert.addEventListener('click', () => {
+        // читаем значения всех полей эксперта:
+        const fishType   = document.querySelector('input[name="fishType"]').value;
+        const season     = document.querySelector('input[name="season"]').value;
+        const fishWeight = document.querySelector('input[name="fishWeight"]').value;
+        const fishLength = document.querySelector('input[name="fishLength"]').value;
+        const amount     = document.querySelector('input[name="amount"]').value;
+        const catchDate  = document.querySelector('input[name="catchDate"]').value;
+
+        // фото (если нужно, по аналогии с обычной страницей)
+        const photoPreview = document.getElementById('photoPreview');
+        const photoSrc     = photoPreview && photoPreview.src ? photoPreview.src : '';
+
+        // сохраняем в sessionStorage
+        const expertData = {
+          fishType,
+          season,
+          fishWeight,
+          fishLength,
+          amount,
+          catchDate,
+          photoSrc
+        };
+        sessionStorage.setItem('expertFishData', JSON.stringify(expertData));
+
+        // и переходим на экран проверки поста экспертом
+        window.location.href = 'reviewPostExpert.html';
+      });
+    }
+  }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const page = window.location.pathname.split('/').pop();
+
+  // === Экран проверки поста экспертом ===
+  if (page === 'reviewPostExpert.html') {
+    // 1) Считываем собранные данные
+    const expertData = JSON.parse(sessionStorage.getItem('expertFishData')   || '{}');
+    const location   = sessionStorage.getItem('selectedLocation')           || '';
+    const user       = JSON.parse(sessionStorage.getItem('user')            || '{}');
+
+    // 2) Заполняем поля на странице
+    const fill = (id, val) => {
+      const el = document.getElementById(id);
+      if (el) el.innerText = val;
+    };
+    fill('displayFishType',   expertData.fishType);
+    fill('displaySeason',     expertData.season);
+    fill('displayFishWeight', expertData.fishWeight);
+    fill('displayFishLength', expertData.fishLength);
+    fill('displayAmount',     expertData.amount);
+    fill('displayCatchDate',  expertData.catchDate);
+    fill('displayLocation',   location);
+
+    const img = document.getElementById('displayPhoto');
+    if (img && expertData.photoSrc) {
+      img.src           = expertData.photoSrc;
+      img.style.display = 'block';
+    }
+
+    // 3) ← Назад на describeFishExpert.html
+    document.getElementById('backBtnReviewExpert')
+      .addEventListener('click', () => {
+        window.location.href = 'describeFishExpert.html';
+      });
+
+    // 4) ✔ Отправляем на сервер как «approved»
+    document.getElementById('confirmBtnExpert')
+      .addEventListener('click', async () => {
+        
+        const postBody = {
+          author:     user.id,
+          fishType:   expertData.fishType,
+          season:     expertData.season,
+          fishWeight: expertData.fishWeight,
+          fishLength: expertData.fishLength,
+          amount:     expertData.amount,
+          catchDate:  expertData.catchDate,
+          photoSrc:   expertData.photoSrc,
+          location,
+          status:     'approved'
+        };
+        try {
+          const resp = await fetch('/api/posts', {
+            method:  'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body:    JSON.stringify(postBody)
+          });
+          const result = await resp.json();
+          if (!resp.ok) {
+            alert(result.error || 'Failed to publish post.');
+            return;
+          }
+          alert('Your expert post has been published!');
+          window.location.href = 'FirstUserScrean.html';
+        } catch (err) {
+          console.error(err);
+          alert('Network error. Please try again later.');
+        }
+      });
   }
 });

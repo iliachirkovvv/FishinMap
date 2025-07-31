@@ -1,0 +1,100 @@
+{
+	"info": {
+		"_postman_id": "d5e8cc01-fc3b-4252-a0c4-eb14fabadbb0",
+		"name": "user side",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45677042",
+		"_collection_link": "https://anyafrolova.postman.co/workspace/cb2a1017-a7c6-4acc-8b37-7097d9e4774b/collection/45677042-d5e8cc01-fc3b-4252-a0c4-eb14fabadbb0?action=share&source=collection_link&creator=45677042"
+	},
+	"item": [
+		{
+			"name": "sign up",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"firstName\": \"Anna\",\r\n  \"lastName\":  \"Ivanova\",\r\n  \"email\":     \"annnnna@example.com\",\r\n  \"password\":  \"Secret123\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/auth/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "log in",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\":    \"anna@example.com\",\r\n  \"password\": \"Secret123\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add post",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"author\":    \"646f7a2b8c5d9e0012345678\", \r\n  \"fishType\":  \"Carpi\",\r\n  \"fishWeight\":\"2.5kg\",\r\n  \"fishLength\":\"45cm\",\r\n  \"catchDate\": \"2025-07-31\",\r\n  \"photoSrc\":  \"data:image/png;base64,iVBORw0KGgoAAAANS…\", \r\n  \"location\":  \"Lake Blue\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/posts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
