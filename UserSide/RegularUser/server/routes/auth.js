@@ -35,11 +35,11 @@ router.post('/login', async (req, res) => {
     return res.status(400).json({ error: 'Missing email or password' });
   }
   try {
-    // 2) Ищем пользователя с совпадающим email+пароль и isActive=true
-    const user = await User.findOne({
+    // 2) Ищем пользователя с совпадающим email+пароль
+    const user = await loginUser.findOne({
       email,
       password,
-      __v: 1      // <— вот здесь
+      __v: 1
     });
     // 3) Если не найден — 401
     if (!user) {

@@ -14,12 +14,11 @@ if (backBtn) {
   });
 }
 
-// === Обработка кнопки "Finish" на экране регистрации ===
 const signupForm = document.getElementById('userSignupForm');
 if (signupForm) {
-  const passwordInput = document.querySelector('input[name="password"]');
-  const verifyPasswordInput = document.querySelector('input[name="verifyPassword"]');
-  const errorDiv = document.getElementById('error');
+  const passwordInput        = document.querySelector('input[name="password"]');
+  const verifyPasswordInput  = document.querySelector('input[name="verifyPassword"]');
+  const errorDiv             = document.getElementById('error');
 
   // Очистка ошибок при вводе
   [passwordInput, verifyPasswordInput].forEach(input => {
@@ -28,28 +27,25 @@ if (signupForm) {
     });
   });
 
-  signupForm.addEventListener('submit', function (e) {
+  signupForm.addEventListener('submit', async function (e) {
     e.preventDefault();
 
     const password = passwordInput.value;
     const verifyPassword = verifyPasswordInput.value;
 
-    // Проверка пароля — одна ошибка за раз
+    // Проверка пароля
     if (password.length < 8) {
       errorDiv.textContent = 'Password must be at least 8 characters long.';
       return;
     }
-
     if (!/[A-Z]/.test(password)) {
       errorDiv.textContent = 'Password must include at least one uppercase letter.';
       return;
     }
-
     if (!/\d/.test(password)) {
       errorDiv.textContent = 'Password must include at least one number.';
       return;
     }
-
     if (password !== verifyPassword) {
       errorDiv.textContent = 'Passwords do not match.';
       return;
@@ -59,9 +55,31 @@ if (signupForm) {
     const formData = new FormData(signupForm);
     const data = Object.fromEntries(formData);
 
-    console.log("User registration request:", data);
-    alert("Your registration request has been sent to the admin for approval.");
-    window.location.href = "mainUserScrean.html";
+    // Remove verifyPassword from data before sending
+    delete data.verifyPassword;
+
+    try {
+      const resp = await fetch('/api/auth/signup', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify(data)
+      });
+      const result = await resp.json();
+
+      if (!resp.ok) {
+        // Покажи ошибку сервера
+        errorDiv.textContent = result.error || 'Registration failed.';
+        return;
+      }
+
+      // Успешно!
+      alert("Your registration request has been sent to the admin for approval.");
+      window.location.href = "mainUserScrean.html";
+
+    } catch (err) {
+      errorDiv.textContent = 'Network/server error, please try again.';
+      console.error('Signup error:', err);
+    }
   });
 }
 

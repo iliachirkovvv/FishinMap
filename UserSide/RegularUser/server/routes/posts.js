@@ -34,8 +34,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-module.exports = router;
-
 // GET all fish locations
 router.get('/api/fish-locations', async (req, res) => {
   try {

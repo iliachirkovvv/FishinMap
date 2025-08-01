@@ -1,5 +1,6 @@
 // server/models/User.js
 const mongoose = require('mongoose');
+const fishinmapConnection = mongoose.createConnection('mongodb+srv://anna0512521646:Adminadmin@fishinmap.9zvhhlc.mongodb.net/fishinMap?retryWrites=true&w=majority');
 
 const UserSchema = new mongoose.Schema({
   firstName: { type: String, required: true },          // имя
@@ -22,4 +23,6 @@ const UserSchema = new mongoose.Schema({
   timestamps: true    // автоматически добавит createdAt / updatedAt
 });
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = new mongoose.model('User', UserSchema);
+
+loginUser = fishinmapConnection.model('User', UserSchema);

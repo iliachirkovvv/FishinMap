@@ -69,3 +69,36 @@ fetch('/api/fish-locations') // or your actual endpoint, e.g. '/api/posts'
     console.error('Failed to fetch locations:', err);
   });
 
+  fetch('/api/expert-fish-locations')
+  .then(res => res.json())
+  .then(posts => {
+    posts.forEach(post => {
+      if (post.location) {
+        // Split "lat,lng" string
+        const [lat, lng] = post.location.split(',').map(Number);
+        // Validate numbers
+        if (!isNaN(lat) && !isNaN(lng)) {
+          // Only show approved posts, or change logic as needed
+          if (post.status == 1) {
+            const marker = L.marker([lat, lng], { icon: fishIcon }).addTo(map)
+              .bindPopup(
+                `<b>Expert post!</b><br>
+                 ${post.fishType || 'Unknown Fish'}</b><br>
+                 ${post.catchDate ? new Date(post.catchDate).toLocaleDateString() : ''}
+                 ${post.fishWeight ? '<br>Average Weight: ' + post.fishWeight : ''}
+                 ${post.fishLength ? '<br>Average Length: ' + post.fishLength : ''}
+                 ${post.amount ? '<br>Amount: ' + post.amount : ''}
+                 ${post.photoSrc ? '<br><img src="' + post.photoSrc + '" style="max-width:100px;max-height:80px;"/>' : ''}
+                `
+              );
+              marker.on('mouseover', function(e) { this.openPopup(); });
+              marker.on('mouseout', function(e) { this.closePopup(); });
+          }
+        }
+      }
+    });
+  })
+  .catch(err => {
+    console.error('Failed to fetch locations:', err);
+  });
+
