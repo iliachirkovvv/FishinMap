@@ -5,9 +5,9 @@ const mongoose =   require('mongoose');
 const path     = require('path');
 const cors     = require('cors');
 
-const authRouter = require('./server/routes/auth');
-const postRouter = require('./server/routes/posts');
-const expertRouter = require('./server/routes/expert');
+const authRouter = require('./routes/auth');
+const postRouter = require('./routes/posts');
+const expertRouter = require('./routes/expert');
 
 // 1) Подключаемся к MongoDB
 mongoose.connect(process.env.MONGODB_URI, {
@@ -34,12 +34,12 @@ app.use('/api/expert-fish-locations', expertRouter);
 
 // 4) Раздача фронтенда
 //    Предполагается, что рядом с server/ лежит папка client/
-const clientPath = path.resolve(__dirname, '.', 'client');
+const clientPath = path.resolve('https://fishinmap.netlify.app/');
 app.use(express.static(clientPath));
 
 // 5) Корень сайта — страница логина
 app.get('/', (req, res) => {
-  res.sendFile(path.join(clientPath, 'mainUserScrean.html'));
+  res.sendFile(path.join(clientPath, 'index.html'));
 });
 
 // 6) Запуск
