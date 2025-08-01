@@ -17,6 +17,13 @@
     popupAnchor:  [0, -40]  // where popup opens relative to iconAnchor
   });
 
+  const expertFishIcon = L.icon({
+    iconUrl: './images/fishexpert.png', // Flaticon fish image
+    iconSize:     [40, 40], // width, height
+    iconAnchor:   [20, 40], // point of the icon which corresponds to marker location
+    popupAnchor:  [0, -40]  // where popup opens relative to iconAnchor
+  });
+
  function centerMapOnUser() {
   if ("geolocation" in navigator) {
     navigator.geolocation.getCurrentPosition(
@@ -80,7 +87,7 @@ fetch('/api/fish-locations') // or your actual endpoint, e.g. '/api/posts'
         if (!isNaN(lat) && !isNaN(lng)) {
           // Only show approved posts, or change logic as needed
           if (post.status == 1) {
-            const marker = L.marker([lat, lng], { icon: fishIcon }).addTo(map)
+            const marker = L.marker([lat, lng], { icon: expertFishIcon }).addTo(map)
               .bindPopup(
                 `<b>Expert post!</b><br>
                  ${post.fishType || 'Unknown Fish'}</b><br>
