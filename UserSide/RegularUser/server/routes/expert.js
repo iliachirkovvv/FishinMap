@@ -45,7 +45,7 @@ router.post('/', async (req, res) => {
 });
 
 // GET all expert fish locations
-router.get('/api/expert-fish-locations', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const locations = await ExpertPost.find({});
     res.json(locations);

@@ -26,7 +26,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // 3) API-маршруты
 app.use('/api/auth', authRouter);
-app.use('/api/auth', authRouter);
+app.use('/api/login', authRouter);
 app.use('/api/posts', postRouter);
 app.use('/api/expert', expertRouter);
 app.use('/api/fish-locations', postRouter);

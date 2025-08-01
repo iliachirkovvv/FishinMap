@@ -1,5 +1,6 @@
 // server/models/Post.js
 const mongoose = require('mongoose');
+const fishinmapConnection = mongoose.createConnection('mongodb+srv://anna0512521646:Adminadmin@fishinmap.9zvhhlc.mongodb.net/fishinMap?retryWrites=true&w=majority');
 
 const PostSchema = new mongoose.Schema({
   user:       { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: false },
@@ -19,3 +20,4 @@ const PostSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model('Post', PostSchema);
+approvedPost = fishinmapConnection.model('Post', PostSchema);

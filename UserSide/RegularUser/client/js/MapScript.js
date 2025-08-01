@@ -37,7 +37,7 @@
 // Attach to your button
 document.getElementById('navBtn').addEventListener('click', centerMapOnUser);
 
-// Fetch posts and show as markers
+// Fetch approved posts and show as markers
 fetch('/api/fish-locations') // or your actual endpoint, e.g. '/api/posts'
   .then(res => res.json())
   .then(posts => {
@@ -48,7 +48,7 @@ fetch('/api/fish-locations') // or your actual endpoint, e.g. '/api/posts'
         // Validate numbers
         if (!isNaN(lat) && !isNaN(lng)) {
           // Only show approved posts, or change logic as needed
-          if (post.__v == 1) {
+          if (post.status === 'approved') {
             const marker = L.marker([lat, lng], { icon: fishIcon }).addTo(map)
               .bindPopup(
                 `<b>${post.fishType || 'Unknown Fish'}</b><br>
