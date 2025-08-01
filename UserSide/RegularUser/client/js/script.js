@@ -10,7 +10,7 @@ if (signupBtn) {
 const backBtn = document.getElementById('backBtn');
 if (backBtn) {
   backBtn.addEventListener('click', function () {
-    window.location.href = "mainUserScrean.html";
+    window.location.href = "index.html";
   });
 }
 
@@ -59,7 +59,7 @@ if (signupForm) {
     delete data.verifyPassword;
 
     try {
-      const resp = await fetch('https://fishinmap.netlify.app/api/auth/signup', {
+      const resp = await fetch('https://fishinmap.onrender.com/api/auth/signup', {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
         body:    JSON.stringify(data)
@@ -74,7 +74,7 @@ if (signupForm) {
 
       // Успешно!
       alert("Your registration request has been sent to the admin for approval.");
-      window.location.href = "mainUserScrean.html";
+      window.location.href = "index.html";
 
     } catch (err) {
       errorDiv.textContent = 'Network/server error, please try again.';
@@ -118,7 +118,7 @@ if (loginForm) {
     }
 
     try {
-      const resp = await fetch('https://fishinmap.netlify.app/api/auth/login', {
+      const resp = await fetch('https://fishinmap.onrender.com/api/auth/login', {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
         body:    JSON.stringify({ email, password })
@@ -322,7 +322,7 @@ if (confirmBtn) {
 
     try {
       // 3) POST /api/posts
-      const resp = await fetch('https://fishinmap.netlify.app/api/posts', {
+      const resp = await fetch('https://fishinmap.onrender.com/api/posts', {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
         body:    JSON.stringify(postBody)
@@ -460,7 +460,7 @@ document.addEventListener('DOMContentLoaded', () => {
           status: 1 // всегда 1 для эксперта
         };
         try {
-          const resp = await fetch('https://fishinmap.netlify.app/api/expert', {
+          const resp = await fetch('https://fishinmap.onrender.com/api/expert', {
             method:  'POST',
             headers: { 'Content-Type': 'application/json' },
             body:    JSON.stringify(postBody)
