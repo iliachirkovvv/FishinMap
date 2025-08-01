@@ -32,13 +32,8 @@ app.use('/api/expert', expertRouter);
 app.use('/api/fish-locations', postRouter);
 app.use('/api/expert-fish-locations', expertRouter);
 
-// 5) Корень сайта — страница логина
-app.get('/', (req, res) => {
-  res.sendFile(path.join('https://fishinmap.netlify.app/'));
-});
-
 // 6) Запуск
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
-  console.log(`🚀 Server running at http://localhost:${PORT}`);
+  console.log(`🚀 Server running at https://fishinmap.netlify.app:${PORT}`);
 });
