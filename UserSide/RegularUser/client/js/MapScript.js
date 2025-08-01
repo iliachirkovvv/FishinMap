@@ -45,7 +45,7 @@
 document.getElementById('navBtn').addEventListener('click', centerMapOnUser);
 
 // Fetch approved posts and show as markers
-fetch('https://fishinmap.netlify.app/api/fish-locations') // or your actual endpoint, e.g. '/api/posts'
+fetch('https://fishinmap.onrender.com/api/fish-locations') // or your actual endpoint, e.g. '/api/posts'
   .then(res => res.json())
   .then(posts => {
     posts.forEach(post => {
@@ -76,7 +76,7 @@ fetch('https://fishinmap.netlify.app/api/fish-locations') // or your actual endp
     console.error('Failed to fetch locations:', err);
   });
 
-  fetch('https://fishinmap.netlify.app/api/expert-fish-locations')
+  fetch('https://fishinmap.onrender.com/api/expert-fish-locations')
   .then(res => res.json())
   .then(posts => {
     posts.forEach(post => {
