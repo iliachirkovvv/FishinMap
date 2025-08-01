@@ -1,4 +1,30 @@
 // === Обработка кнопки "Sign up" на главном экране (index.html) ===
+console.log('Script started');
+
+const backBtnFish = document.getElementById('backBtnFish');
+console.log('backBtnFish:', backBtnFish);
+
+const nextBtnFish = document.getElementById('nextBtnFish');
+console.log('nextBtnFish:', nextBtnFish);
+
+// Add click handlers as before
+if (backBtnFish) {
+  backBtnFish.addEventListener('click', () => {
+    console.log('Back clicked!');
+    window.location.href = 'selectLocation.html';
+  });
+}
+if (nextBtnFish) {
+  nextBtnFish.addEventListener('click', () => {
+    console.log('Next clicked!');
+    window.location.href = 'reviewPost.html';
+  });
+}
+
+console.log('Script finished');
+
+
+
 const signupBtn = document.getElementById('signupBtn');
 if (signupBtn) {
   signupBtn.addEventListener('click', function () {
@@ -479,3 +505,5 @@ document.addEventListener('DOMContentLoaded', () => {
       });
   }
 });
+
+
