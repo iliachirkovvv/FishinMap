@@ -250,10 +250,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-document.addEventListener('DOMContentLoaded', () => {
-  const page = window.location.pathname.split('/').pop();
-  if (page === 'reviewPost.html') {
-    // 1) Читаем данные
     const data     = JSON.parse(sessionStorage.getItem('fishData')       || '{}');
     const savedLoc = sessionStorage.getItem('selectedLocation')         || '';
 
@@ -273,9 +269,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 4) ← Назад на describeFish.html
-    const backBtn = el('backBtnReview');
-    if (backBtn) {
-      backBtn.addEventListener('click', () => {
+    const backBtnReview = el('backBtnReview');
+    if (backBtnReview) {
+      backBtnreview.addEventListener('click', () => {
         window.location.href = 'describeFish.html';
       });
     }
@@ -328,19 +324,6 @@ if (confirmBtn) {
   });
 }
 
-  }
-});
-
-    // 1) Подсветить рыбку и отключить её навигацию
-    const fishBtn = document.getElementById('fishBtn');
-    if (fishBtn) {
-      fishBtn.classList.add('active');
-      fishBtn.addEventListener('click', e => {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-      }, true);
-    }
-
     // 2) ← Назад на selectLocation.html
     const backExpert = document.getElementById('backBtnExpert');
     if (backExpert) {
@@ -382,12 +365,6 @@ if (confirmBtn) {
       });
     }
 
-document.addEventListener('DOMContentLoaded', () => {
-  const page = window.location.pathname.split('/').pop();
-
-  // === Экран проверки поста экспертом ===
-  if (page === 'reviewPostExpert.html') {
-    // 1) Считываем собранные данные
     const expertData = JSON.parse(sessionStorage.getItem('expertFishData')   || '{}');
     const location   = sessionStorage.getItem('selectedLocation')           || '';
     const user       = JSON.parse(sessionStorage.getItem('user')            || '{}');
@@ -405,10 +382,10 @@ document.addEventListener('DOMContentLoaded', () => {
     fill('displayCatchDate',  expertData.catchDate);
     fill('displayLocation',   location);
 
-    const img = document.getElementById('displayPhoto');
-    if (img && expertData.photoSrc) {
-      img.src           = expertData.photoSrc;
-      img.style.display = 'block';
+    const imgExpert = document.getElementById('displayPhoto');
+    if (imgExpert && expertData.photoSrc) {
+      imgExpert.src           = expertData.photoSrc;
+      imgExpert.style.display = 'block';
     }
 
     // 3) ← Назад на describeFishExpert.html
@@ -451,7 +428,4 @@ document.addEventListener('DOMContentLoaded', () => {
           alert('Network error. Please try again later.');
         }
       });
-  }
-});
-
 
