@@ -1,30 +1,4 @@
 // === Обработка кнопки "Sign up" на главном экране (index.html) ===
-console.log('Script started');
-
-const backBtnFish = document.getElementById('backBtnFish');
-console.log('backBtnFish:', backBtnFish);
-
-const nextBtnFish = document.getElementById('nextBtnFish');
-console.log('nextBtnFish:', nextBtnFish);
-
-// Add click handlers as before
-if (backBtnFish) {
-  backBtnFish.addEventListener('click', () => {
-    console.log('Back clicked!');
-    window.location.href = 'selectLocation.html';
-  });
-}
-if (nextBtnFish) {
-  nextBtnFish.addEventListener('click', () => {
-    console.log('Next clicked!');
-    window.location.href = 'reviewPost.html';
-  });
-}
-
-console.log('Script finished');
-
-
-
 const signupBtn = document.getElementById('signupBtn');
 if (signupBtn) {
   signupBtn.addEventListener('click', function () {
@@ -222,21 +196,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-  const page = window.location.pathname.split('/').pop();
-
-  // === Экран добавления информации о рыбке (describeFish.html) ===
-  if (page === 'describeFish.html') {
-    // 1) Подсветить рыбку чёрным, но отключить у неё навигацию
-    const fishBtn = document.getElementById('fishBtn');
-    if (fishBtn) {
-      fishBtn.classList.add('active');
-      fishBtn.addEventListener('click', e => {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-      }, true);
-    }
-
         // === Превью фото на describeFish.html ===
     const selectImageBtn = document.getElementById('selectImage');
     const fishPhotoInput = document.getElementById('fishPhoto');
@@ -290,9 +249,6 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.href = 'reviewPost.html';
       });
     }
-  }
-});
-
 
 document.addEventListener('DOMContentLoaded', () => {
   const page = window.location.pathname.split('/').pop();
@@ -375,12 +331,6 @@ if (confirmBtn) {
   }
 });
 
-
-document.addEventListener('DOMContentLoaded', () => {
-  const page = window.location.pathname.split('/').pop();
-
-  // === Экран описания рыбы экспертом (describeFishExpert.html) ===
-  if (page === 'describeFishExpert.html') {
     // 1) Подсветить рыбку и отключить её навигацию
     const fishBtn = document.getElementById('fishBtn');
     if (fishBtn) {
@@ -431,8 +381,6 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.href = 'reviewPostExpert.html';
       });
     }
-  }
-});
 
 document.addEventListener('DOMContentLoaded', () => {
   const page = window.location.pathname.split('/').pop();
