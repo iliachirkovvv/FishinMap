@@ -41,7 +41,7 @@
           fishLength: expertData.fishLength,
           amount:     expertData.amount,
           catchDate:  expertData.catchDate,
-          location,
+          location: location,
           photoSrc:   expertData.photoSrc,
           status: 1 // всегда 1 для эксперта
         };
