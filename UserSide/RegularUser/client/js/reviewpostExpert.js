@@ -1,7 +1,7 @@
 
     // 1) Считываем собранные данные
     const expertData = JSON.parse(sessionStorage.getItem('expertFishData')   || '{}');
-    const location   = sessionStorage.getItem('selectedLocation')           || '';
+    const reviewLocation   = sessionStorage.getItem('selectedLocation')           || '';
     const user       = JSON.parse(sessionStorage.getItem('user')            || '{}');
 
     // 2) Заполняем поля на странице
@@ -15,7 +15,7 @@
     fill('displayFishLength', expertData.fishLength);
     fill('displayAmount',     expertData.amount);
     fill('displayCatchDate',  expertData.catchDate);
-    fill('displayLocation',   location);
+    fill('displayLocation',   reviewLocation);
 
     const img = document.getElementById('displayPhoto');
     if (img && expertData.photoSrc) {
@@ -41,7 +41,7 @@
           fishLength: expertData.fishLength,
           amount:     expertData.amount,
           catchDate:  expertData.catchDate,
-          location: location,
+          location: reviewLocation,
           photoSrc:   expertData.photoSrc,
           status: 1 // всегда 1 для эксперта
         };
